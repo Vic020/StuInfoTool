@@ -15,7 +15,11 @@ class Grade(object):
         self.passwd = passwd
         self.gradespider = GradeSpider()
 
-    def verifyLogin(self):
+    def verifyLogin(self, name=None, passwd=None):
+        if name is not None:
+            self.name = name
+        if passwd is not None:
+            self.passwd = passwd
         return self.gradespider.login(self.name, self.passwd)
 
     def close(self):
