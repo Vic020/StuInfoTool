@@ -1,14 +1,28 @@
 # StuInfoTool
 A tool of DLNU Web, Using Python to fetch useful information,showing with desktop GUI.More quickly get info than using normal website.
 
-## Requirement
+## Functions
+>
+> Display term or whole grade 
+>
+> Calculate GPA,providing SIX kinds of calculation methods
+>
+> Output .xls
+>
+> Support SSL proxy
+>
+
+## Requirements
 
 > Python 2.7+
 >
 > Requests
 >
-> PyQt4
+> BeautifulSoup 4
+>
+> PyQt 4
+> 
 
-## Contributor
+## Contributors
 
 > [Vic020](http://vicyu.net)
