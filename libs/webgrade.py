@@ -11,9 +11,6 @@ import requests
 import re
 
 
-__author__ = 'VicYu'
-
-
 class GradeSpider(object):
     """
     信息门户的爬虫

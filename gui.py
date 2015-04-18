@@ -3,16 +3,11 @@
 '''
 Create On Wed Feb 04 2015 23:11:29
 
-@author  : Vic Yu
-
-@link    : http://vicyu.net
+@author  : Vic Yu(http://vicyu.net) JonnyF(http://jonnyf.com)
 '''
 import sys
 from PyQt4 import QtGui, QtCore
-from webgradelib import GradeSpider
-
-
-__author__ = 'VicYu'
+from libs.webgrade import GradeSpider
 
 
 class GradeListWindow(QtGui.QMainWindow):

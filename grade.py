@@ -3,10 +3,11 @@
 '''
 Create On Mon Mar 16 2015 01:29:07
 
-@author  : Vic Yu(http://vicyu.net)
+@author  : Vic Yu(http://vicyu.net) JonnyF(http://jonnyf.com)
 '''
 from libs.webgrade import GradeSpider
-from libs.htmlpcoess import *
+from libs.htmlprocess import *
+from libs.generatexls import Generatexls
 
 
 class Grade(object):
@@ -39,4 +40,6 @@ class Grade(object):
         pass
 
     def generateSheet(self):
-        pass
+        resultlist = self.getAllGrade()
+        generatexls = Generatexls()
+        generatexls.generatexls(resultlist)
