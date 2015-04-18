@@ -30,7 +30,6 @@ class GradeListWindow(QtGui.QMainWindow):
         self.center()
 
     def closeEvent(self, e):
-        self.parent.show()
         self.close()
 
     def center(self):  # 主窗口居中显示函数
@@ -41,8 +40,12 @@ class GradeListWindow(QtGui.QMainWindow):
 
     def xlsdDesktop(self):
         grades = grade.Grade(self.name, self.passwd)
-        grades.verifyLogin()
-        grades.generateSheet()
+        try:
+            grades.verifyLogin()
+            grades.generateSheet()
+            QtGui.QMessageBox.warning(self, u'提醒', u'表格生成成功！请到桌面上查看')
+        except:
+            QtGui.QMessageBox.warning(self, u'提醒', u'表格生成错误！')
 
 
 class LoginWindow(QtGui.QWidget):
@@ -92,6 +95,7 @@ class LoginWindow(QtGui.QWidget):
             QtGui.QMessageBox.warning(self, u'提醒', u'登录成功')
             gradelistwindow = GradeListWindow(self, name, passwd)
             self.hide()
+            self.close()
             gradelistwindow.show()
         else:
             QtGui.QMessageBox.warning(self, u'提醒', u'用户名或密码错误')
