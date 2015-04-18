@@ -8,20 +8,24 @@ Create On Wed Feb 04 2015 23:11:29
 import sys
 from PyQt4 import QtGui, QtCore
 from libs.webgrade import GradeSpider
+import grade
 
 
 class GradeListWindow(QtGui.QMainWindow):
     """
 
     """
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, username=None, passwd=None):
         super(GradeListWindow, self).__init__(parent)
 
         self.initUI()
         self.parent = parent
+        self.name = username
+        self.passwd = passwd
 
     def initUI(self):
-        btn = QtGui.QPushButton('test', self)
+        btn = QtGui.QPushButton(u'保存为xls到桌面', self)
+        btn.clicked.connect(self.xlsdDesktop)
         self.resize(600, 400)
         self.center()
 
@@ -34,6 +38,11 @@ class GradeListWindow(QtGui.QMainWindow):
         screen = QtGui.QDesktopWidget().screenGeometry()
         size = self.geometry()
         self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
+
+    def xlsdDesktop(self):
+        grades = grade.Grade(self.name, self.passwd)
+        grades.verifyLogin()
+        grades.generateSheet()
 
 
 class LoginWindow(QtGui.QWidget):
@@ -81,10 +90,9 @@ class LoginWindow(QtGui.QWidget):
 
         if self.gradespider.login(name, passwd):
             QtGui.QMessageBox.warning(self, u'提醒', u'登录成功')
-            gradelistwindow = GradeListWindow(self)
+            gradelistwindow = GradeListWindow(self, name, passwd)
             self.hide()
             gradelistwindow.show()
-
         else:
             QtGui.QMessageBox.warning(self, u'提醒', u'用户名或密码错误')
 
