@@ -25,7 +25,7 @@ A tool of DLNU Web, Using Python to fetch useful information,showing with deskto
 >
 > PyQt 4
 > 
-> xlwt
+> xlwt 1.0.0
 > 
 
 ## Contributors

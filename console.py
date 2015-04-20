@@ -8,7 +8,6 @@ Create On Mon Mar 16 2015 01:32:27
 import sys
 import getopt
 import grade
-import os
 
 
 def Usage():
@@ -18,9 +17,9 @@ def Usage():
     print '-p:Input password'
 
 
-def main(argv):
+def main():
     try:
-        opts, args = getopt.getopt(argv[1:], 'hu:p:', ['u=', 'p='])
+        opts, args = getopt.getopt(sys.argv[1:], 'hu:p:', ['u=', 'p='])
     except getopt.GetoptError, err:
         print str(err)
         Usage()
@@ -43,11 +42,10 @@ def main(argv):
         if gradespider:
             grades.generateSheet()
             print 'Successful Please go to the desktop view'
-            os.system('C:\Users\Jonny\Desktop\AllResult.xls')
         else:
             print 'username or password error'
     else:
         Usage()
 
 if __name__ == '__main__':
-    main(sys.argv)
+    main()

@@ -7,8 +7,7 @@ Create On Wed Feb 04 2015 23:11:29
 '''
 import sys
 from PyQt4 import QtGui, QtCore
-from libs.webgrade import GradeSpider
-import grade
+from grade import Grade
 
 
 class GradeListWindow(QtGui.QMainWindow):
@@ -58,7 +57,7 @@ class LoginWindow(QtGui.QWidget):
         self.initUI()
 
     def initUI(self):
-        self.gradespider = GradeSpider()
+        # self.gradespider = GradeSpider()
 
         self.nameLbl = QtGui.QLabel(u'学 号:')
         self.nameLe = QtGui.QLineEdit()
@@ -90,8 +89,9 @@ class LoginWindow(QtGui.QWidget):
     def commitComfirm(self):
         name = str(self.nameLe.text())
         passwd = str(self.passwdLe.text())
-
-        if self.gradespider.login(name, passwd):
+        if not hasattr(self, 'grade'):
+            self.grade = Grade()
+        if self.grade.login(name, passwd):
             QtGui.QMessageBox.warning(self, u'提醒', u'登录成功')
             gradelistwindow = GradeListWindow(self, name, passwd)
             self.hide()
