@@ -3,35 +3,32 @@
 '''
 Create On Wed Feb 04 2015 23:11:29
 
-@author  : Vic Yu
-
-@link    : http://vicyu.net
+@author  : Vic Yu(http://vicyu.net) JonnyF(http://jonnyf.com)
 '''
 import sys
 from PyQt4 import QtGui, QtCore
-from webgradelib import GradeSpider
-
-
-__author__ = 'VicYu'
+from grade import Grade
 
 
 class GradeListWindow(QtGui.QMainWindow):
     """
 
     """
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, username=None, passwd=None):
         super(GradeListWindow, self).__init__(parent)
 
         self.initUI()
         self.parent = parent
+        self.name = username
+        self.passwd = passwd
 
     def initUI(self):
-        btn = QtGui.QPushButton('test', self)
+        btn = QtGui.QPushButton(u'保存为xls到桌面', self)
+        btn.clicked.connect(self.xlsdDesktop)
         self.resize(600, 400)
         self.center()
 
     def closeEvent(self, e):
-        self.parent.show()
         self.close()
 
     def center(self):  # 主窗口居中显示函数
@@ -39,6 +36,15 @@ class GradeListWindow(QtGui.QMainWindow):
         screen = QtGui.QDesktopWidget().screenGeometry()
         size = self.geometry()
         self.move((screen.width()-size.width())/2, (screen.height()-size.height())/2)
+
+    def xlsdDesktop(self):
+        grades = grade.Grade(self.name, self.passwd)
+        try:
+            grades.verifyLogin()
+            grades.generateSheet()
+            QtGui.QMessageBox.warning(self, u'提醒', u'表格生成成功！请到桌面上查看')
+        except:
+            QtGui.QMessageBox.warning(self, u'提醒', u'表格生成错误！')
 
 
 class LoginWindow(QtGui.QWidget):
@@ -51,7 +57,7 @@ class LoginWindow(QtGui.QWidget):
         self.initUI()
 
     def initUI(self):
-        self.gradespider = GradeSpider()
+        # self.gradespider = GradeSpider()
 
         self.nameLbl = QtGui.QLabel(u'学 号:')
         self.nameLe = QtGui.QLineEdit()
@@ -83,13 +89,14 @@ class LoginWindow(QtGui.QWidget):
     def commitComfirm(self):
         name = str(self.nameLe.text())
         passwd = str(self.passwdLe.text())
-
-        if self.gradespider.login(name, passwd):
+        if not hasattr(self, 'grade'):
+            self.grade = Grade()
+        if self.grade.login(name, passwd):
             QtGui.QMessageBox.warning(self, u'提醒', u'登录成功')
-            gradelistwindow = GradeListWindow(self)
+            gradelistwindow = GradeListWindow(self, name, passwd)
             self.hide()
+            self.close()
             gradelistwindow.show()
-
         else:
             QtGui.QMessageBox.warning(self, u'提醒', u'用户名或密码错误')
 

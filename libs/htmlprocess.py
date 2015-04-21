@@ -22,7 +22,7 @@ def htmlProcessAllGrade(html):
             课程号,
             课序号,
             英文课程名]，
-        '课程名2':[学分,成绩]，
+        '课程名2':[学分,成绩,课程属性,课程号,课序号,英文课程名]，
     }
     """
     resultlist = dict()

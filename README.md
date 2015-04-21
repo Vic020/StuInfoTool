@@ -25,7 +25,11 @@ A tool of DLNU Web, Using Python to fetch useful information,showing with deskto
 >
 > PyQt 4
 > 
+> xlwt 1.0.0
+> 
 
 ## Contributors
 
 > [Vic020](http://vicyu.net)
+> 
+> [JonnyF](http://jonnyf.com)
