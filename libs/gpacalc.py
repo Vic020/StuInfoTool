@@ -23,8 +23,9 @@ def GPA(
             '优秀': 90,
             '良好': 80,
             '中等': 70,
-            '合格': 60,
-            '不合格': 50,
+            '及格': 60,
+            '不及格': 50,
+            '通过': 60,
         }):
     '''
         计算GPA
@@ -80,4 +81,13 @@ def processOriginGradelist(gradelist):
             (grade2, credit2),
         ]
     '''
-    return gradelist
+    newgradelist = list()
+    for key in gradelist.keys():
+        try:
+            grade = float(gradelist[key][0])
+            credit = float(gradelist[key][1])
+        except UnicodeEncodeError:
+            credit = gradelist[key][1]
+        finally:
+            newgradelist.append((grade, credit))
+    print newgradelist
