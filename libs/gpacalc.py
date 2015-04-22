@@ -20,12 +20,12 @@ def GPA(
         type_=Type_DLNU,
         transform=True,
         transformTable={
-            '优秀': 90,
-            '良好': 80,
-            '中等': 70,
-            '及格': 60,
-            '不及格': 50,
-            '通过': 60,
+            u'优秀': 90.0,
+            u'良好': 80.0,
+            u'中等': 70.0,
+            u'及格': 60.0,
+            u'不及格': 50.0,
+            u'通过': 60.0,
         }):
     '''
         计算GPA
@@ -66,19 +66,24 @@ def transformGrade(gradelist, transformTable):
         中文等地转换
         根据transformTable转换
         gradelist = [
-            (grade1, credit1),
-            (grade2, credit2),
+            (credit1, grade1),
+            (credit2, grade2),
         ]
     '''
-    return gradelist
+    newgradelist = list()
+    for (credit, grade) in gradelist:
+        if type(grade) == unicode:
+            grade = transformTable[grade]
+        newgradelist.append((credit, grade))
+    return newgradelist
 
 
 def processOriginGradelist(gradelist):
     '''
         成绩数据转换，只需要学分和成绩
         gradelist = [
-            (grade1, credit1),
-            (grade2, credit2),
+            (credit1, grade1),
+            (credit2, grade2),
         ]
     '''
     newgradelist = list()
